@@ -126,14 +126,15 @@ const end = () => {
     const what = document.querySelector(".what").classList.contains("selected");
     const the = document.querySelector(".the").classList.contains("selected");
     var a = 0;
-    for(let i = 0; i < 12; i++){
-        if( document.getElementById(`b${i}a`).classList.contains("selected")) a++;
+    for (let i = 0; i < 12; i++) {
+        if (document.getElementById(`b${i}a`).classList.contains("selected")) a++;
+        else if (!document.getElementById(`b${i}a`).classList.contains("selected")) { alert("請回答完所有問題"); return; }
     }
     const url = `?name=${name}&what=${what}&the=${the}&a=${a}`;
     console.log(url);
     fetch(url)
         .then(function (response) {
-            
+
         })
         .catch(function (error) {
             alert("錯誤，請再試一次: " + error)
