@@ -11,7 +11,8 @@ function backward() {
 }
 
 function foward() {
-    if (currentIndex < itemDivs.length - 1) {
+    console.log(currentIndex, itemDivs.length)
+    if (currentIndex < itemDivs.length) {
         currentIndex++;
         scrollToCurrentIndex();
     }
@@ -20,9 +21,11 @@ const hideButton = () => {
     if (currentIndex === 0) backwardButton.style.opacity = "0";
     else backwardButton.style.opacity = "1";
     if (currentIndex === itemDivs.length - 1) forwardButton.style.opacity = "0";
-    else forwardButton.style.opacity = "1";
-
-    forwardButton.disabled = !(document.getElementById("b" + (9 - currentIndex) + "a").classList.contains("selected") || document.getElementById("b" + (9 - currentIndex) + "b").classList.contains("selected"))
+    else {
+        forwardButton.style.opacity = "1";
+        console.log("find" + currentIndex)
+        forwardButton.disabled = !(document.getElementById("b" + (11 - currentIndex) + "a").classList.contains("selected") || document.getElementById("b" + (11 - currentIndex) + "b").classList.contains("selected"))
+    }
 }
 function scrollToCurrentIndex() {
     const itemWidth = itemDivs[currentIndex].offsetWidth;
@@ -80,40 +83,28 @@ const start = () => {
     document.getElementById("start").classList.add("started");
     const keysArray = Object.keys(questions);
     const selectedKeys = [];
-    while (selectedKeys.length < 10) {
-        const randomIndex = Math.floor(Math.random() * keysArray.length);
+    while (selectedKeys.length < 12) {
+        const randomIndex = getRandomIndex(keysArray.length)
         const randomKey = keysArray[randomIndex];
-        if (!selectedKeys.includes(randomKey)) {
-            selectedKeys.push(randomKey);
-        }
+        if (!selectedKeys.includes(randomKey)) selectedKeys.push(randomKey);
     }
-
     for (let i = 0; i < selectedKeys.length; i++) {
+        console.log(i);
         var divElement = document.createElement("div");
         divElement.innerHTML = `<h4>${selectedKeys[i]}</h4>
         <button id="b${i}a" onclick="select(${i}, 1)">${questions[selectedKeys[i]][0]}</button><button id="b${i}b" onclick="select(${i},0)">${questions[selectedKeys[i]][1]}</button>`
         leftElement.insertAdjacentElement("afterend", divElement);
     }
     itemDivs = document.querySelectorAll(".items div");
-    //pick two random div
-    
-    const itemDivs = document.querySelectorAll(".items div");
-const randomIndex1 = getRandomIndex();
-let randomIndex2 = getRandomIndex(itemDivs.length);
+    const randomIndex1 = getRandomIndex(itemDivs.length);
+    let randomIndex2 = getRandomIndex(itemDivs.length);
+    while (randomIndex2 === randomIndex1) {
+        randomIndex2 = getRandomIndex(itemDivs.length);
+    }
+    itemDivs[randomIndex1].innerHTML = `<h4>你在這個城市的飯店裡感覺很無聊，這時候你會選擇做什麼來打發時間呢...</h4><button class="what" id="b${11 - randomIndex1}a" onclick="select(${11 - randomIndex1}, 1)">看電影、閱讀小說或欣賞藝術作品。</button><button id="b${11 - randomIndex1}b" onclick="select(${11 - randomIndex1},0)">研究新知識、進行邏輯思考或解決問題。</button>`;
+    itemDivs[randomIndex2].innerHTML = `<h4>你走進了一個酒吧，裡面的人非常熱心地想和你聊天，這時你會選擇...</h4><button class="the" id="b${11 - randomIndex2}a" onclick="select(${11 - randomIndex2}, 1)">主動與他人交談，分享生活趣事或情感經歷。</button><button id="b${11 - randomIndex2}b" onclick="select(${11 - randomIndex2},0)">聆聽他人的想法，進行深度討論或探討具體主題。</button>`;
+    const randomDiv2 = itemDivs[randomIndex2];
 
-// Make sure the two random indices are different
-while (randomIndex2 === randomIndex1) {
-    randomIndex2 = getRandomIndex(itemDivs.length);
-}
-
-// Now, you can access the selected divs using itemDivs[randomIndex1] and itemDivs[randomIndex2]
-const randomDiv1 = itemDivs[randomIndex1];
-const randomDiv2 = itemDivs[randomIndex2];
-
-// You can now work with these two randomly selected divs as needed.
-
-    
-    
     scrollToCurrentIndex();
 }
 
@@ -125,4 +116,26 @@ const select = (e, b) => {
 
 function getRandomIndex(max) {
     return Math.floor(Math.random() * max);
+}
+const resultPage = document.getElementById("result");
+const end = () => {
+    result.innerHTML = `<h4 class="loading">分析中...</h4>`;
+    document.getElementById("start").classList.add("end");
+    document.getElementById("start").classList.remove("started");
+    const name = document.getElementById("name").value;
+    const what = document.querySelector(".what").classList.contains("selected");
+    const the = document.querySelector(".the").classList.contains("selected");
+    var a = 0;
+    for(let i = 0; i < 12; i++){
+        if( document.getElementById(`b${i}a`).classList.contains("selected")) a++;
+    }
+    const url = `?name=${name}&what=${what}&the=${the}&a=${a}`;
+    console.log(url);
+    fetch(url)
+        .then(function (response) {
+            
+        })
+        .catch(function (error) {
+            alert("錯誤，請再試一次: " + error)
+        });
 }
