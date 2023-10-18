@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Text to Image</title>
+</head>
+<body>
+    <img id="image" src="img/玉米.jpg" alt="Your Image">
+    <canvas id="canvas"></canvas>
+
+    <script>
+window.onload = function() {
+            // Get the image and canvas elements
+            const image = document.getElementById("image");
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        // Set the canvas dimensions to match the image
+        canvas.width = image.width;
+        canvas.height = image.height;
+
+        // Draw the image on the canvas
+        ctx.drawImage(image, 0, 0);
+
+        // Define the text properties
+        ctx.font = "bold 70px system-ui"; // Font size and type
+        ctx.fillStyle = "#000"; // Text color
+
+        // Add text to the canvas
+        ctx.fillText("蘇裔非非非非", 150, 370); // Replace with your text and position
+
+        // Convert canvas to image and create a download link
+        const imageWithText = new Image();
+        imageWithText.src = canvas.toDataURL("image/png");
+
+        // Create a download link
+        const downloadLink = document.createElement("a");
+        downloadLink.href = imageWithText.src;
+        downloadLink.download = "image_with_text.png"; // Set the desired filename
+        downloadLink.innerHTML = "Download Image with Text";
+        document.body.appendChild(downloadLink);
+}
+    </script>
+</body>
+</html>
