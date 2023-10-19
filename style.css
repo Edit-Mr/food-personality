@@ -13,6 +13,7 @@ body {
     background: url(img/paper.webp);
     background-size: cover;
     font-size: 0.8rem;
+    overflow-x: hidden;
 }
 
 h1 {
@@ -100,7 +101,7 @@ input[type="text"],
     border: none;
     outline: none;
     background: #fffef971;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 900;
     cursor: pointer;
     margin-top: 2em;
@@ -175,7 +176,15 @@ footer a,
     color: #535353;
     font-weight: 600;
 }
-
+a.credit{
+    font-size: 1.25rem;
+    margin-top: 2em;
+    border-top: #00000023 solid 1px;
+    width: 100%;
+    text-align: center;
+    color: #535353;
+text-decoration: none;
+}
 #download-text {
     font-size: 2rem;
 }
@@ -237,7 +246,6 @@ h4 {
     100% {
         opacity: .5;
     }
-
 }
 
 #image {
@@ -262,6 +270,7 @@ canvas {
     padding: 0 0 1rem;
     background: url(img/paper.webp);
     background-size: cover;
+    display: none;
 }
 
 h2 {
@@ -354,19 +363,6 @@ input[type="range"]:focus::-moz-range-thumb {
     outline-offset: 0.125rem;
 }
 
-@media (max-aspect-ratio: 4/3) {
-    .arrow {
-        display: none;
-    }
-
-    #start button,
-    .items div button,
-    input[type="text"],
-    #download-button {
-        padding: .8em 1em;
-    }
-}
-
 #today {
     display: flex;
     justify-content: center;
@@ -380,4 +376,132 @@ input[type="range"]:focus::-moz-range-thumb {
 
 .items>div button:last-child {
     margin-top: 1em;
+}
+
+
+/* fei */
+
+.fei {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 40em;
+    height: 40em;
+    animation-composition: accumulate;
+    display: none;
+}
+
+.fei.on {
+    animation: horizontal 2.6s infinite linear alternate,
+        vertical 2s infinite linear alternate, hue-rotate 5s infinite linear;
+    pointer-events: none;
+    display: block;
+}
+
+.fei>img {
+    display: block;
+    position: absolute;
+    width: 100%;
+}
+
+.left-wing,
+.right-wing {
+    z-index: 2;
+    animation: rotateLeft .2s infinite alternate ease-in-out;
+    transform: translateY(-5%);
+}
+
+.right-wing {
+    animation: rotateRight .2s infinite alternate ease-in-out;
+}
+
+.fei>.mouse {
+    left: 44.3%;
+    top: 33%;
+    width: 11.3%;
+    z-index: 4;
+    transform-origin: top;
+    animation: scale 1s infinite alternate ease-in-out;
+}
+
+.face {
+    z-index: 3;
+}
+
+@keyframes rotateLeft {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(-45deg);
+    }
+}
+
+@keyframes rotateRight {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(45deg);
+    }
+}
+
+@keyframes hue-rotate {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+@keyframes scale {
+    from {
+        transform: scaleY(1);
+    }
+
+    to {
+        transform: scaleY(2);
+    }
+}
+
+@keyframes horizontal {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(calc(100vw - 100%));
+    }
+}
+
+@keyframes vertical {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(calc(100vh - 100%));
+    }
+}
+
+@media (max-aspect-ratio: 4/3) {
+    .arrow {
+        display: none;
+    }
+
+    #start button,
+    .items div button,
+    input[type="text"],
+    #download-button {
+        padding: .8em 1em;
+    }
+
+    .fei {
+        width: 20em;
+        height: 20em;
+    }
 }

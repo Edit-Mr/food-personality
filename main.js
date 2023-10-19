@@ -159,20 +159,21 @@ const end = () => {
             <canvas id="canvas"></canvas><div class="container"><a id="download-button"></a><p id="download-text">長按以下載圖片</p><h2>你覺得有多準</h2>
                 <input type="range" id="rangeInput" min="0" max="10" step="1" value="5">
                 <span id="output">5</span>
-                <button onclick="feedback()" id="feedback">提交</button></div>`;
+                <button onclick="feedback()" id="feedback">提交</button><a href="/credit" class="credit">@2023 food-personality.com<br>製作人員</a></div>`;
             const image = document.getElementById("image");
             const canvas = document.getElementById("canvas");
             image.onload = function () {
                 const ctx = canvas.getContext("2d");
-                canvas.width = image.width;
-                canvas.height = image.width / 600 * 1067;
-                ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-                ctx.font = `bold ${image.width / 15}px system-ui`;
+                canvas.width = 1080;
+                canvas.height = 1920;
+                ctx.drawImage(image, 0, 0, 1080, 1920);
+                ctx.font = `bold 70px system-ui`;
                 ctx.fillStyle = "#000";
-                ctx.fillText(user, image.width / 7.3, image.width / 2.9);
+                ctx.fillText(user, 150, 370); 
                 const imageWithText = new Image();
                 imageWithText.src = canvas.toDataURL("image/png");
                 image.src = imageWithText.src;
+                document.querySelector(".container").style.display = "block";
                 if (!/(iPhone|iPad)/.test(navigator.userAgent)) {
                     const downloadLink = document.getElementById("download-button");
                     downloadLink.href = imageWithText.src;
@@ -199,10 +200,20 @@ const feedback = () => {
     fetch(url)
         .then(response => response.json())
         .then(response => {
-            feedback.innerText = "提交成功，感謝你的參與";
+            feedback.innerText = "提交成功，感謝您的參與";
         })
         .catch(function (error) {
             alert("錯誤，請再試一次: " + error)
         });
+}
 
+
+if (Math.random() < 1 / 500) {
+    document.querySelector(".fei").classList.add("on");
+} else {
+    console.log("運氣不是很好喔");
+}
+
+function a() {
+    document.querySelector(".fei").classList.toggle("on");
 }
