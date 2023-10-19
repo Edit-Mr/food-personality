@@ -135,14 +135,15 @@ const select = (e, b) => {
 function getRandomIndex(max) {
     return Math.floor(Math.random() * max);
 }
+var user = "";
 const resultPage = document.getElementById("result");
 const end = () => {
     result.innerHTML = `<h4 class="loading">分析中</h4>`;
     document.getElementById("start").classList.add("end");
     document.getElementById("start").classList.remove("started");
-    const name = document.getElementById("name").value;
-    const what = document.querySelector(".what").classList.contains("selected");
-    const the = document.querySelector(".the").classList.contains("selected");
+    user = document.getElementById("name").value;
+    const what = 0 + document.querySelector(".what").classList.contains("selected");
+    const the = 0 + document.querySelector(".the").classList.contains("selected");
     var a = 0;
 
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);
@@ -152,7 +153,7 @@ const end = () => {
         else if (!document.getElementById(`b${i}b`).classList.contains("selected")) pass = i;
     }
     if (pass !== "okay") {
-        alert(`請回答完第${pass + 1}題`);
+        alert(`請回答完第${12 - pass}題`);
         document.getElementById("start").classList.remove("end");
         document.getElementById("start").classList.add("started");
         return;
@@ -161,7 +162,8 @@ const end = () => {
     fetch(url)
         .then(function (response) {
             //console the response text
-            result.innerHTML = `<img id="image" src="img/${response.text()}.jpg" alt="你是${response.text()}">
+            var text = response.text();
+            result.innerHTML = `<img id="image" src="img/${text}.jpg" alt="你是${text}">
                 <canvas id="canvas"></canvas>`;
             const image = document.getElementById("image");
             const canvas = document.getElementById("canvas");
@@ -171,7 +173,7 @@ const end = () => {
             ctx.drawImage(image, 0, 0);
             ctx.font = "bold 70px system-ui";
             ctx.fillStyle = "#000";
-            ctx.fillText("蘇裔非非非非", 150, 370);
+            ctx.fillText(name, 150, 370);
             const imageWithText = new Image();
             imageWithText.src = canvas.toDataURL("image/png");
             const downloadLink = document.createElement("a");
