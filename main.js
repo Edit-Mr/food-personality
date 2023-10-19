@@ -155,7 +155,7 @@ const end = () => {
         .then(response => response.json())
         .then(response => {
             var text = response.message;
-            resultPage.innerHTML = `<div class="wrap"><img id="image" src="/img/${text}.jpg" alt="你是${text}">
+            resultPage.innerHTML = `<div class="wrap"><img id="image" src="https://food-personality.com/img/${text}.webp" alt="你是${text}">
             <canvas id="canvas"></canvas><div class="container"><a id="download-button"></a><p id="download-text">長按以下載圖片</p><h2>你覺得有多準</h2>
                 <input type="range" id="rangeInput" min="0" max="10" step="1" value="5">
                 <span id="output">5</span>
