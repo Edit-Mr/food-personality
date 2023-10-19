@@ -155,11 +155,11 @@ const end = () => {
         .then(response => response.json())
         .then(response => {
             var text = response.message;
-            resultPage.innerHTML = `<img id="image" src="/img/${text}.jpg" alt="你是${text}">
+            resultPage.innerHTML = `<div class="wrap"><img id="image" src="/img/${text}.jpg" alt="你是${text}">
             <canvas id="canvas"></canvas><div class="container"><a id="download-button"></a><p id="download-text">長按以下載圖片</p><h2>你覺得有多準</h2>
                 <input type="range" id="rangeInput" min="0" max="10" step="1" value="5">
                 <span id="output">5</span>
-                <button onclick="feedback()" id="feedback">提交</button><a href="/credit" class="credit">@2023 food-personality.com<br>製作人員</a></div>`;
+                <button onclick="feedback()" id="feedback">提交</button><a href="/credit" class="credit">@2023 food-personality.com<br>製作人員</a></div></div>`;
             const image = document.getElementById("image");
             const canvas = document.getElementById("canvas");
             image.onload = function () {
@@ -173,7 +173,7 @@ const end = () => {
                 const imageWithText = new Image();
                 imageWithText.src = canvas.toDataURL("image/png");
                 image.src = imageWithText.src;
-                document.querySelector(".container").style.display = "block";
+                document.querySelector(".container").style.display = "flex";
                 if (!/(iPhone|iPad)/.test(navigator.userAgent)) {
                     const downloadLink = document.getElementById("download-button");
                     downloadLink.href = imageWithText.src;
@@ -183,10 +183,13 @@ const end = () => {
                     document.getElementById("download-text").classList.add("small");
                     const rangeInput = document.getElementById('rangeInput');
                     const output = document.getElementById('output');
-                    rangeInput.addEventListener('input', function () {
-                        output.textContent = rangeInput.value;
-                    });
-                }
+                }else document.getElementById("download-button").style.display = "none";
+                rangeInput.addEventListener('input', function () {
+                    output.textContent = rangeInput.value;
+                });
+                rangeInput.addEventListener('touchmove', function () {
+                    output.textContent = rangeInput.value;
+                });
             }
         })
         .catch(function (error) {
