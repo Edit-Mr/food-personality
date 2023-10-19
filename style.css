@@ -78,7 +78,8 @@ section {
     transform: translate(-80%, -50%);
 }
 
-#test {
+#test,
+#today {
     opacity: 0;
     pointer-events: none;
 }
@@ -144,8 +145,8 @@ input[type="text"],
     width: 23em;
 }
 
-
-.started+section#test,
+.too+section#today,
+.started~section#test,
 .end~section#result {
     opacity: 1;
     pointer-events: all;
@@ -153,6 +154,7 @@ input[type="text"],
 }
 
 .started,
+.too,
 #result,
 .end {
     opacity: 0;
@@ -224,6 +226,7 @@ h4 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    font-size: 2rem;
 }
 
 @keyframes shine {
@@ -358,4 +361,19 @@ input[type="range"]:focus::-moz-range-thumb {
     #download-button {
         padding: .8em 1em;
     }
+}
+
+#today{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.too + section#today{
+    display: flex;
+}
+
+.items > div  button:last-child{
+    margin-top: 1em;
 }

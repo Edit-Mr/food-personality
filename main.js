@@ -82,7 +82,7 @@ const questions = {
 
 const leftElement = document.getElementById("left");
 const start = () => {
-    document.getElementById("start").classList.add("started");
+    document.getElementById("start").classList.add("too");
     const keysArray = Object.keys(questions);
     const selectedKeys = [];
     while (selectedKeys.length < 12) {
@@ -105,8 +105,19 @@ const start = () => {
     itemDivs[randomIndex1].innerHTML = `<h4>你在飯店裡感覺很無聊，這時你會...</h4><button class="what" id="b${11 - randomIndex1}a" onclick="select(${11 - randomIndex1}, 1)">看電影、閱讀小說或欣賞藝術作品。</button><button id="b${11 - randomIndex1}b" onclick="select(${11 - randomIndex1},0)">研究新知識、進行邏輯思考或解決問題。</button>`;
     itemDivs[randomIndex2].innerHTML = `<h4>走進了一個酒吧，裡面的人想和你聊天，這時你會...</h4><button class="the" id="b${11 - randomIndex2}a" onclick="select(${11 - randomIndex2}, 1)">主動與他人交談，分享生活趣事或情感經歷。</button><button id="b${11 - randomIndex2}b" onclick="select(${11 - randomIndex2},0)">聆聽他人的想法，進行深度討論或探討具體主題。</button>`;
     const randomDiv2 = itemDivs[randomIndex2];
-
     scrollToCurrentIndex();
+    const ahhhh = document.querySelector(".ahhhh");
+    ahhhh.innerText = "."
+    setTimeout(function () {
+        ahhhh.innerText = ".."
+    }, 1000);
+    setTimeout(function () {
+        ahhhh.innerText = "..."
+    }, 1500);
+    setTimeout(function () {
+        document.getElementById("start").classList.remove("too");
+        document.getElementById("start").classList.add("started");
+    }, 2000);
 }
 
 const select = (e, b) => {
@@ -141,8 +152,8 @@ const end = () => {
     }
     const url = `https://script.google.com/macros/s/AKfycbyE3M7Cv434c6JhT-415IUA1pWaUi8w1OP8vom62txO8Pcof3eLta3_DISRUbFEa55qlg/exec?mode=form&name=${user}&userAgent=${navigator.userAgent}&what=${what}&the=${the}&a=${a}`;
     fetch(url)
-    .then(response => response.json())
-        .then(response =>{
+        .then(response => response.json())
+        .then(response => {
             var text = response.message;
             resultPage.innerHTML = `<div class="container"><img id="image" src="img/${text}.jpg" alt="你是${text}">
                 <canvas id="canvas"></canvas><a id="download-button"></a><p id="download-text">長按以下載圖片</p><h2>你覺得有多準</h2>
@@ -152,28 +163,28 @@ const end = () => {
             const image = document.getElementById("image");
             const canvas = document.getElementById("canvas");
             image.onload = function () {
-            const ctx = canvas.getContext("2d");
-            canvas.width = image.width;
-            canvas.height = image.width/600*1067;
-            ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-            ctx.font = `bold ${image.width/15}px system-ui`;
-            ctx.fillStyle = "#000";
-            ctx.fillText(user, image.width/7.3, image.width/2.9); 
-            if (!/(iPhone|iPad)/.test(navigator.userAgent)) {
-            const imageWithText = new Image();
-            imageWithText.src = canvas.toDataURL("image/png");
-            const downloadLink = document.getElementById("download-button");
-            downloadLink.href = imageWithText.src;
-            downloadLink.download = user+"的食物探悉.png";
-            downloadLink.innerText = "下載圖片";
-            document.getElementById("download-text").innerText =navigator.userAgent.includes("Win")?"亦可右鍵下載圖片": "亦可長按下載圖片";
-            document.getElementById("download-text").classList.add("small");
-            const rangeInput = document.getElementById('rangeInput');
-            const output = document.getElementById('output');
-            rangeInput.addEventListener('input', function() {
-                output.textContent = rangeInput.value;
-            });
-            }
+                const ctx = canvas.getContext("2d");
+                canvas.width = image.width;
+                canvas.height = image.width / 600 * 1067;
+                ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+                ctx.font = `bold ${image.width / 15}px system-ui`;
+                ctx.fillStyle = "#000";
+                ctx.fillText(user, image.width / 7.3, image.width / 2.9);
+                if (!/(iPhone|iPad)/.test(navigator.userAgent)) {
+                    const imageWithText = new Image();
+                    imageWithText.src = canvas.toDataURL("image/png");
+                    const downloadLink = document.getElementById("download-button");
+                    downloadLink.href = imageWithText.src;
+                    downloadLink.download = user + "的食物探悉.png";
+                    downloadLink.innerText = "下載圖片";
+                    document.getElementById("download-text").innerText = navigator.userAgent.includes("Win") ? "亦可右鍵下載圖片" : "亦可長按下載圖片";
+                    document.getElementById("download-text").classList.add("small");
+                    const rangeInput = document.getElementById('rangeInput');
+                    const output = document.getElementById('output');
+                    rangeInput.addEventListener('input', function () {
+                        output.textContent = rangeInput.value;
+                    });
+                }
             }
         })
         .catch(function (error) {
@@ -185,8 +196,8 @@ const feedback = () => {
     feedback.innerText = "提交中";
     const url = `https://script.google.com/macros/s/AKfycbyE3M7Cv434c6JhT-415IUA1pWaUi8w1OP8vom62txO8Pcof3eLta3_DISRUbFEa55qlg/exec?mode=score&score=${document.getElementById("rangeInput").value}&name=${user}&userAgent=${navigator.userAgent}`;
     fetch(url)
-    .then(response => response.json())
-        .then(response =>{
+        .then(response => response.json())
+        .then(response => {
             feedback.innerText = "提交成功，感謝你的參與";
         })
         .catch(function (error) {
