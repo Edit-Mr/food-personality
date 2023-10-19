@@ -160,9 +160,9 @@ const end = () => {
     }
     const url = `https://script.google.com/macros/s/AKfycbyE3M7Cv434c6JhT-415IUA1pWaUi8w1OP8vom62txO8Pcof3eLta3_DISRUbFEa55qlg/exec?name=${name}&what=${what}&the=${the}&a=${a}`;
     fetch(url)
-        .then(function (response) {
-            //console the response text
-            var text = response.text();
+    .then(response => response.json())
+        .then(response =>{
+            var text = response.message;
             result.innerHTML = `<img id="image" src="img/${text}.jpg" alt="你是${text}">
                 <canvas id="canvas"></canvas>`;
             const image = document.getElementById("image");

@@ -7,7 +7,6 @@
 }
 
 body {
-    overflow: hidden;
     min-height: 100svh;
     font-family: 'Noto Serif TC', serif;
     background-color: #f3efea;
@@ -135,6 +134,7 @@ z-index: -1;
 .end~section#result {
     opacity: 1;
     pointer-events: all;
+    display: block;
 }
 
 .started,
@@ -182,9 +182,7 @@ h4 {
 }
 
 #result{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+   display: none;
 }
 .loading{
     animation: shine 1s infinite alternate;
@@ -201,5 +199,6 @@ h4 {
 }
 
 #image{
-    display: none;
+   height: 100vh;
+   width: auto;
 }
