@@ -137,6 +137,86 @@
         section div {
             transform: translateX(2em);
         }
+
+        .fei {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 40em;
+            height: 40em;
+            transform: translate(-50%, -25%);
+            animation: hue-rotate 5s infinite linear;
+        }
+
+        .fei>img {
+            display: block;
+            position: absolute;
+            width: 100%;
+        }
+
+        .left-wing,
+        .right-wing {
+            z-index: 2;
+            animation: rotateLeft .2s infinite alternate ease-in-out;
+            transform: translateY(-5%);
+        }
+
+        .right-wing {
+            animation: rotateRight .2s infinite alternate ease-in-out;
+        }
+
+        .fei>.mouse {
+            left: 44.3%;
+            top: 33%;
+            width: 11.3%;
+            z-index: 4;
+            transform-origin: top;
+            animation: scale 1s infinite alternate ease-in-out;
+        }
+
+        .face {
+            z-index: 3;
+        }
+
+        @keyframes rotateLeft {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(-45deg);
+            }
+        }
+
+        @keyframes rotateRight {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(45deg);
+            }
+        }
+
+        @keyframes hue-rotate {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        @keyframes scale {
+            from {
+                transform: scaleY(1);
+            }
+
+            to {
+                transform: scaleY(2);
+            }
+        }
     </style>
 </head>
 
@@ -153,7 +233,7 @@
                     <h2>蘇裔非</h2>
                     <h3>YouTuber / 心理學家</h3>
                 </div>
-                <div class="lr aos"> <img src="/credit/ifeisu.webp" alt=""></div>
+                <div class="lr aos"><img src="/credit/ifeisu.webp" alt=""></div>
             </section>
         </a><a href="https://www.youtube.com/channel/UCiXuSx3IuiYI87dHOhVxC6A" target="_blank">
             <section>
@@ -161,7 +241,7 @@
                     <h2>毛哥EM</h2>
                     <h3>網頁設計</h3>
                 </div>
-                <div class="lr aos"> <img src="/credit/EM.webp" alt=""></div>
+                <div class="lr aos"><img src="/credit/EM.webp" alt=""></div>
             </section>
         </a><a href="https://www.youtube.com/@Miao_Miao_" target="_blank">
             <section>
@@ -173,6 +253,11 @@
             </section>
         </a>
     </main>
+    <div class="fei">
+        <img src="/img/fei/face.webp" alt="" class="face">
+        <img src="/img/fei/left.webp" alt="" class="left-wing">
+        <img src="/img/fei/right.webp" alt="" class="right-wing"><img src="/img/fei/mouse.webp" alt="" class="mouse">
+    </div>
     <script>
         function isElementInViewport(el) {
             const rect = el.getBoundingClientRect();
