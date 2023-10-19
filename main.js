@@ -138,7 +138,7 @@ function getRandomIndex(max) {
 var user = "";
 const resultPage = document.getElementById("result");
 const end = () => {
-    result.innerHTML = `<h4 class="loading">分析中</h4>`;
+    resultPage.innerHTML = `<h4 class="loading">分析中</h4>`;
     document.getElementById("start").classList.add("end");
     document.getElementById("start").classList.remove("started");
     user = document.getElementById("name").value;
@@ -158,29 +158,59 @@ const end = () => {
         document.getElementById("start").classList.add("started");
         return;
     }
-    const url = `https://script.google.com/macros/s/AKfycbyE3M7Cv434c6JhT-415IUA1pWaUi8w1OP8vom62txO8Pcof3eLta3_DISRUbFEa55qlg/exec?name=${name}&what=${what}&the=${the}&a=${a}`;
+    const url = `https://script.google.com/macros/s/AKfycbyE3M7Cv434c6JhT-415IUA1pWaUi8w1OP8vom62txO8Pcof3eLta3_DISRUbFEa55qlg/exec?mode=form&name=${user}&userAgent=${navigator.userAgent}&what=${what}&the=${the}&a=${a}`;
     fetch(url)
     .then(response => response.json())
         .then(response =>{
             var text = response.message;
-            result.innerHTML = `<img id="image" src="img/${text}.jpg" alt="你是${text}">
-                <canvas id="canvas"></canvas>`;
+            resultPage.innerHTML = `<div class="container"><img id="image" src="img/${text}.jpg" alt="你是${text}">
+                <canvas id="canvas"></canvas><a id="download-button"></a><p id="download-text">長按以下載圖片</p><h2>你覺得有多準</h2>
+                <input type="range" id="rangeInput" min="0" max="10" step="1" value="5">
+                <span id="output">5</span>
+                <button onclick="feedback()" id="feedback">提交</button></div>`;
             const image = document.getElementById("image");
             const canvas = document.getElementById("canvas");
+            image.onload = function () {
             const ctx = canvas.getContext("2d");
             canvas.width = image.width;
-            canvas.height = image.height;
-            ctx.drawImage(image, 0, 0);
-            ctx.font = "bold 70px system-ui";
+            canvas.height = image.width/600*1067;
+            
+            ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+            ctx.font = `bold ${image.width/15}px system-ui`;
             ctx.fillStyle = "#000";
-            ctx.fillText(name, 150, 370);
+            ctx.fillText(user, image.width/7.3, image.width/2.9); 
+            if (!/(iPhone|iPad)/.test(navigator.userAgent)) {
             const imageWithText = new Image();
             imageWithText.src = canvas.toDataURL("image/png");
-            const downloadLink = document.createElement("a");
+            const downloadLink = document.getElementById("download-button");
             downloadLink.href = imageWithText.src;
-            downloadLink.download = "image_with_text.png";
-            downloadLink.innerHTML = "Download Image with Text";
-            document.body.appendChild(downloadLink);
+            downloadLink.download = user+"的食物探悉.png";
+            downloadLink.innerText = "下載圖片";
+            document.getElementById("download-text").innerText =navigator.userAgent.includes("Win")?"亦可右鍵下載圖片": "亦可長按下載圖片";
+            document.getElementById("download-text").classList.add("small");
+            const rangeInput = document.getElementById('rangeInput');
+            const output = document.getElementById('output');
+    
+            rangeInput.addEventListener('input', function() {
+                output.textContent = rangeInput.value;
+            });
+            }
+            }
+        })
+        .catch(function (error) {
+            alert("錯誤，請再試一次: " + error)
+        });
+
+}
+
+const feedback = () => {
+    var feedback = document.getElementById("feedback");
+    feedback.innerText = "提交中";
+    const url = `https://script.google.com/macros/s/AKfycbyE3M7Cv434c6JhT-415IUA1pWaUi8w1OP8vom62txO8Pcof3eLta3_DISRUbFEa55qlg/exec?mode=score&score=${document.getElementById("rangeInput").value}&name=${user}&userAgent=${navigator.userAgent}`;
+    fetch(url)
+    .then(response => response.json())
+        .then(response =>{
+            feedback.innerText = "提交成功，感謝你的參與";
         })
         .catch(function (error) {
             alert("錯誤，請再試一次: " + error)

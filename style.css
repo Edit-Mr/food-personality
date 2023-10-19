@@ -13,6 +13,7 @@ body {
     background: url(img/paper.webp);
     background-size: cover;
 }
+
 h1 {
     font-size: 0em;
 }
@@ -86,11 +87,13 @@ section {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap:1.5rem;
+    gap: 1.5rem;
 }
 
-#start button,.items div button,
-input {
+#start button,
+.items div button,
+input[type="text"],
+#download-button {
     padding: .8em 4em;
     border: none;
     outline: none;
@@ -102,30 +105,40 @@ input {
     transition: transform .3s;
     border-radius: 1em;
     box-shadow: 0 0 10px #00000023;
+    display: block;
+    color: #000;
+    text-decoration: none;
+    text-align: center;
+    font-family: 'Noto Serif TC', serif;
 }
 
-#start button:hover,.items div button:hover {
+#start button:hover,
+.items div button:hover,
+#download-button:hover {
     transform: translateY(3px);
 }
-#start .title{
+
+#start .title {
     position: relative;
 }
-#start .title::after{
+
+#start .title::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 100%;
-background: url(/img/title.svg) no-repeat center center;
-filter: blur(.3em) opacity(.7);
-z-index: -1;
+    background: url(/img/title.svg) no-repeat center center;
+    filter: blur(.3em) opacity(.7);
+    z-index: -1;
 }
 
-#start .title img{
+#start .title img {
     width: 20em;
 }
-#start img{
+
+#start img {
     width: 23em;
 }
 
@@ -143,6 +156,7 @@ z-index: -1;
     opacity: 0;
     pointer-events: none;
 }
+
 footer {
     position: absolute;
     bottom: 2em;
@@ -151,9 +165,24 @@ footer {
     text-align: center;
     font-size: 1.5rem;
 }
-footer a{
+
+footer a,
+#download-text {
     color: #535353;
     font-weight: 600;
+}
+
+#download-text {
+    font-size: 2rem;
+}
+
+#download-text.small {
+    font-size: 1rem;
+}
+
+#download-text {
+    text-align: center;
+    margin-top: 1em;
 }
 
 .items .title {
@@ -164,9 +193,11 @@ footer a{
     text-align: center;
     font-size: .5rem;
 }
-.items .title img.cap{
+
+.items .title img.cap {
     height: 1rem;
 }
+
 .items .title img {
     height: 2rem;
 }
@@ -181,24 +212,132 @@ h4 {
     cursor: not-allowed;
 }
 
-#result{
-   display: none;
+#result {
+    display: none;
 }
-.loading{
+
+.loading {
     animation: shine 1s infinite alternate;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 @keyframes shine {
     0% {
         opacity: 1;
     }
+
     100% {
-       opacity: .5;
+        opacity: .5;
     }
-    
+
 }
 
-#image{
-   height: 100vh;
-   width: auto;
+#image {
+    width: 100%;
+    max-width: 600px;
+    position: absolute;
+    max-width: 600px;
+    top: -200vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1rem 1rem;
+}
+
+h2 {
+    font-size: 2rem;
+    margin:1.5em;
+}
+
+#feedback {
+    border: none;
+    outline: transparent;
+    background: transparent;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.5rem;
+}
+#feedback:hover {
+    text-decoration: underline;
+}
+
+#output {
+    display: block;
+    margin: .8em 0 .5em;
+}
+
+/********** Range Input Styles **********/
+/*Range Reset*/
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    width: 25rem;
+    display: block;
+}
+
+/* Removes default focus */
+input[type="range"]:focus {
+    outline: none;
+}
+
+/***** Chrome, Safari, Opera and Edge Chromium styles *****/
+/* slider track */
+input[type="range"]::-webkit-slider-runnable-track {
+    background-color: #404040;
+    height: 0.25rem;
+}
+
+/* slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    /* Override default look */
+    appearance: none;
+    margin-top: -12px;
+    /* Centers thumb on the track */
+
+    /*custom styles*/
+    background-color: #000000;
+    height: 3rem;
+    width: rem;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+    border: 1px solid #404040;
+    outline: 3px solid #404040;
+    outline-offset: 0.125rem;
+}
+
+/******** Firefox styles ********/
+/* slider track */
+input[type="range"]::-moz-range-track {
+    background-color: #404040;
+    height: 0.25rem;
+}
+
+/* slider thumb */
+input[type="range"]::-moz-range-thumb {
+    border: none;
+    /*Removes extra border that FF applies*/
+    border-radius: 0;
+    /*Removes default border-radius that FF applies*/
+
+    /*custom styles*/
+    background-color: #000000;
+    height: 2rem;
+    width: .25rem;
+}
+
+input[type="range"]:focus::-moz-range-thumb {
+    outline: 3px solid #404040;
+    outline-offset: 0.125rem;
 }
