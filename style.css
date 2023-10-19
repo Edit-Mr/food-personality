@@ -12,6 +12,7 @@ body {
     background-color: #f3efea;
     background: url(img/paper.webp);
     background-size: cover;
+    font-size: 0.8rem;
 }
 
 h1 {
@@ -110,6 +111,7 @@ input[type="text"],
     text-decoration: none;
     text-align: center;
     font-family: 'Noto Serif TC', serif;
+    max-width: 100%;
 }
 
 #start button:hover,
@@ -251,11 +253,13 @@ h4 {
     flex-direction: column;
     align-items: center;
     padding: 0 1rem 1rem;
+    background: url(img/paper.webp);
+    background-size: cover;
 }
 
 h2 {
     font-size: 2rem;
-    margin:1.5em;
+    margin: 1.5em;
 }
 
 #feedback {
@@ -265,6 +269,7 @@ h2 {
     font-family: 'Noto Serif TC', serif;
     font-size: 1.5rem;
 }
+
 #feedback:hover {
     text-decoration: underline;
 }
@@ -340,4 +345,17 @@ input[type="range"]::-moz-range-thumb {
 input[type="range"]:focus::-moz-range-thumb {
     outline: 3px solid #404040;
     outline-offset: 0.125rem;
+}
+
+@media (max-aspect-ratio: 4/3) {
+    .arrow {
+        display: none;
+    }
+
+    #start button,
+    .items div button,
+    input[type="text"],
+    #download-button {
+        padding: .8em 1em;
+    }
 }

