@@ -11,7 +11,7 @@ body {
     min-height: 100svh;
     font-family: 'Noto Serif TC', serif;
     background-color: #f3efea;
-    background: url(img/paper.jpg);
+    background: url(img/paper.webp);
     background-size: cover;
 }
 h1 {
@@ -46,23 +46,8 @@ section {
     padding: 1rem;
 }
 
-.items div button,
-input {
-    padding: .5em 1em;
-    border: none;
-    outline: none;
-    background: transparent;
-    color: #000;
-    border: 1px solid #000;
-    font-size: 1.5rem;
-    font-weight: 900;
-    cursor: pointer;
-    margin-top: 1em;
-    transition: transform .3s;
-}
-
 .items div button.selected {
-    background: #000;
+    background: #000000b1;
     color: #fff;
 }
 
@@ -105,7 +90,8 @@ input {
     gap:1.5rem;
 }
 
-#start button {
+#start button,.items div button,
+input {
     padding: .8em 4em;
     border: none;
     outline: none;
@@ -119,10 +105,13 @@ input {
     box-shadow: 0 0 10px #00000023;
 }
 
+#start button:hover,.items div button:hover {
+    transform: translateY(3px);
+}
 #start .title{
     position: relative;
 }
-#start title::after{
+#start .title::after{
     content: '';
     position: absolute;
     bottom: 0;
@@ -141,9 +130,6 @@ z-index: -1;
     width: 23em;
 }
 
-#start button:hover {
-    transform: translateY(3px);
-}
 
 .started+section#test,
 .end~section#result {

@@ -18,7 +18,7 @@
             min-height: 100svh;
             font-family: 'Noto Serif TC', serif;
             background-color: #f3efea;
-            background: url(/img/paper.jpg);
+            background: url(/img/paper.webp);
             background-size: cover;
         }
 
@@ -27,6 +27,7 @@
             text-align: center;
             text-decoration: underline;
             margin-bottom: 1em;
+            color: #535353;
         }
 
         h2 {
@@ -106,6 +107,7 @@
             color: #000;
             text-decoration: none;
             position: relative;
+            display: block;
         }
 
         h2 a::after {
@@ -129,7 +131,8 @@
             opacity: 1;
             transform: translate(0em);
         }
-        section div{
+
+        section div {
             transform: translateX(2em);
         }
     </style>
@@ -140,30 +143,33 @@
     <main>
         <div class="title">
             <a href="../"><img src="/img/title.svg">
-            <img src="/img/caption.svg" class="cap"></a>
+                <img src="/img/caption.svg" class="cap"></a>
         </div>
-        <h1>Credits</h1>
-        <section>
-            <div class="aos">
-                <h2><a href="https://www.youtube.com/@ifeisu_" target="_blank">蘇裔非</a></h2>
-                <h3>YouTuber / 心理學家</h3>
-            </div>
-            <div class="lr aos"> <img src="蘇裔非.webp" alt=""></div>
-        </section>
-        <section>
-            <div class="right aos">
-                <h2><a href="https://www.youtube.com/channel/UCiXuSx3IuiYI87dHOhVxC6A" target="_blank">毛哥EM</a></h2>
-                <h3>網頁設計</h3>
-            </div>
-            <div class="lr aos"> <img src="毛哥EM.webp" alt=""></div>
-        </section>
-        <section>
-            <div class="aos">
-                <h2><a href="https://www.youtube.com/@Miao_Miao_" target="_blank">妙妙男爵</a></h2>
-                <h3>插圖</h3>
-            </div>
-            <div class="lr aos"><img src="妙妙男爵.webp" alt="" class="flip"></div>
-        </section>
+        <h1>Credits</h1><a href="https://www.youtube.com/@ifeisu_" target="_blank">
+            <section>
+                <div class="aos">
+                    <h2>蘇裔非</h2>
+                    <h3>YouTuber / 心理學家</h3>
+                </div>
+                <div class="lr aos"> <img src="蘇裔非.webp" alt=""></div>
+            </section>
+        </a><a href="https://www.youtube.com/channel/UCiXuSx3IuiYI87dHOhVxC6A" target="_blank">
+            <section>
+                <div class="right aos">
+                    <h2>毛哥EM</h2>
+                    <h3>網頁設計</h3>
+                </div>
+                <div class="lr aos"> <img src="毛哥EM.webp" alt=""></div>
+            </section>
+        </a><a href="https://www.youtube.com/@Miao_Miao_" target="_blank">
+            <section>
+                <div class="aos">
+                    <h2>妙妙男爵</h2>
+                    <h3>插圖</h3>
+                </div>
+                <div class="lr aos"><img src="妙妙男爵.webp" alt="" class="flip"></div>
+            </section>
+        </a>
     </main>
     <script>
         function isElementInViewport(el) {
