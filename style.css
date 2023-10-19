@@ -243,9 +243,13 @@ h4 {
 #image {
     width: 100%;
     max-width: 600px;
+    margin: 0 auto;
+    display: block;
+}
+
+canvas {
     position: absolute;
-    max-width: 600px;
-    top: -200vh;
+    top: -300vh;
 }
 
 .container {
@@ -255,7 +259,7 @@ h4 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 1rem 1rem;
+    padding: 0 0 1rem;
     background: url(img/paper.webp);
     background-size: cover;
 }
@@ -363,17 +367,17 @@ input[type="range"]:focus::-moz-range-thumb {
     }
 }
 
-#today{
+#today {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
 
-.too + section#today{
+.too+section#today {
     display: flex;
 }
 
-.items > div  button:last-child{
+.items>div button:last-child {
     margin-top: 1em;
 }

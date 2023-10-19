@@ -155,8 +155,8 @@ const end = () => {
         .then(response => response.json())
         .then(response => {
             var text = response.message;
-            resultPage.innerHTML = `<div class="container"><img id="image" src="img/${text}.jpg" alt="你是${text}">
-                <canvas id="canvas"></canvas><a id="download-button"></a><p id="download-text">長按以下載圖片</p><h2>你覺得有多準</h2>
+            resultPage.innerHTML = `<img id="image" src="img/${text}.jpg" alt="你是${text}">
+            <canvas id="canvas"></canvas><div class="container"><a id="download-button"></a><p id="download-text">長按以下載圖片</p><h2>你覺得有多準</h2>
                 <input type="range" id="rangeInput" min="0" max="10" step="1" value="5">
                 <span id="output">5</span>
                 <button onclick="feedback()" id="feedback">提交</button></div>`;
@@ -170,9 +170,10 @@ const end = () => {
                 ctx.font = `bold ${image.width / 15}px system-ui`;
                 ctx.fillStyle = "#000";
                 ctx.fillText(user, image.width / 7.3, image.width / 2.9);
+                const imageWithText = new Image();
+                imageWithText.src = canvas.toDataURL("image/png");
+                image.src = imageWithText.src;
                 if (!/(iPhone|iPad)/.test(navigator.userAgent)) {
-                    const imageWithText = new Image();
-                    imageWithText.src = canvas.toDataURL("image/png");
                     const downloadLink = document.getElementById("download-button");
                     downloadLink.href = imageWithText.src;
                     downloadLink.download = user + "的食物探悉.png";
