@@ -82,9 +82,6 @@ const questions = {
 
 const leftElement = document.getElementById("left");
 const start = () => {
-
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);
-
     document.getElementById("start").classList.add("started");
     const keysArray = Object.keys(questions);
     const selectedKeys = [];
@@ -131,8 +128,6 @@ const end = () => {
     const what = 0 + document.querySelector(".what").classList.contains("selected");
     const the = 0 + document.querySelector(".the").classList.contains("selected");
     var a = 0;
-
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);
     var pass = "okay";
     for (let i = 0; i < 12; i++) {
         if (document.getElementById(`b${i}a`).classList.contains("selected")) a++;
@@ -160,7 +155,6 @@ const end = () => {
             const ctx = canvas.getContext("2d");
             canvas.width = image.width;
             canvas.height = image.width/600*1067;
-            
             ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
             ctx.font = `bold ${image.width/15}px system-ui`;
             ctx.fillStyle = "#000";
