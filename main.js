@@ -144,11 +144,15 @@ var user = "";
 const resultPage = document.getElementById("result");
 
 const end = () => {
+    user = document.getElementById("name").value;
+    if (user === "") {
+        alert("請輸入名字");
+        return;
+    }
     var allAns = [];
     resultPage.innerHTML = `<h4 class="loading">分析中</h4>`;
     document.getElementById("start").classList.add("end");
     document.getElementById("start").classList.remove("started");
-    user = document.getElementById("name").value;
     const what = 0 + document.querySelector(".what").classList.contains("selected");
     const the = 0 + document.querySelector(".the").classList.contains("selected");
     var a = 0;
