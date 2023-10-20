@@ -23,6 +23,7 @@ function foward() {
     }
 }
 const hideButton = () => {
+    current.innerText = currentIndex < 12 ? `${currentIndex + 1}/12` : "";
     if (currentIndex === 0) backwardButton.style.opacity = "0";
     else backwardButton.style.opacity = "1";
     if (currentIndex === itemDivs.length - 1) forwardButton.style.opacity = "0";
@@ -34,7 +35,6 @@ const hideButton = () => {
 }
 function scrollToCurrentIndex() {
     const itemWidth = itemDivs[currentIndex].offsetWidth;
-    current.innerText = currentIndex < 12 ? `${currentIndex + 1}/12` : "";
     const scrollPosition = itemWidth * currentIndex;
     itemsContainer.scrollTo({
         left: scrollPosition,
