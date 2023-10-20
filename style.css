@@ -524,3 +524,11 @@ input[type="range"]:focus::-moz-range-thumb {
         font-size: 2em;
     }
 }
+
+/* @media height less than 500px */
+
+@media (max-height: 500px) {
+    body{
+        font-size: 0.5rem;
+    }
+}
