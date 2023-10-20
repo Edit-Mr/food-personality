@@ -175,7 +175,6 @@ const end = () => {
                 ctx.fillText(user, 150, 370); 
                 const imageWithText = new Image();
                 imageWithText.src = canvas.toDataURL("image/png");
-                alert(imageWithText.src);
                 image.src = imageWithText.src;
                 document.querySelector(".container").style.display = "flex";
                 if (!/(iPhone|iPad)/.test(navigator.userAgent)) {
