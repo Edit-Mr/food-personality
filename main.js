@@ -146,7 +146,7 @@ const resultPage = document.getElementById("result");
 const end = () => {
     user = document.getElementById("name").value;
     if (user === "") {
-        alert("請輸入名字");
+        alert("你爸媽有給你取名子吧?至少取個陳家豪吧?");
         return;
     }
     var allAns = [];
