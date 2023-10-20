@@ -109,14 +109,15 @@ const start = () => {
         leftElement.insertAdjacentElement("afterend", divElement);
     }
     itemDivs = document.querySelectorAll(".items div");
-    const randomIndex1 = getRandomIndex(itemDivs.length);
-    let randomIndex2 = getRandomIndex(itemDivs.length);
+    const randomIndex1 = getRandomIndex(itemDivs.length -1);
+    let randomIndex2 = getRandomIndex(itemDivs.length -1);
     while (randomIndex2 === randomIndex1) {
-        randomIndex2 = getRandomIndex(itemDivs.length);
+        randomIndex2 = getRandomIndex(itemDivs.length -1);
     }
     itemDivs[randomIndex1].innerHTML = `<h4>你在飯店裡感覺很無聊，這時你會...</h4><button class="what" id="b${11 - randomIndex1}a" onclick="select(${11 - randomIndex1}, 1)">看電影、閱讀小說或欣賞藝術作品。</button><button id="b${11 - randomIndex1}b" onclick="select(${11 - randomIndex1},0)">研究新知識、進行邏輯思考或解決問題。</button>`;
     itemDivs[randomIndex2].innerHTML = `<h4>走進了一個酒吧，裡面的人想和你聊天，這時你會...</h4><button class="the" id="b${11 - randomIndex2}a" onclick="select(${11 - randomIndex2}, 1)">主動與他人交談，分享生活趣事或情感經歷。</button><button id="b${11 - randomIndex2}b" onclick="select(${11 - randomIndex2},0)">聆聽他人的想法，進行深度討論或探討具體主題。</button>`;
     const randomDiv2 = itemDivs[randomIndex2];
+
     scrollToCurrentIndex();
     ahhhh.innerText = "."
     setTimeout(function () {
