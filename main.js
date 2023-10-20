@@ -1,4 +1,5 @@
 let currentIndex = 0;
+let sentTimes = 0;
 const itemsContainer = document.querySelector(".items");
 let itemDivs;
 const backwardButton = document.querySelector("button[onclick='backward()']");
@@ -140,51 +141,12 @@ const select = (e, b) => {
 function getRandomIndex(max) {
     return Math.floor(Math.random() * max);
 }
-var user = "";
+let user = "";
 const resultPage = document.getElementById("result");
-
-const end = () => {
-    user = document.getElementById("name").value;
-    if (user === "") {
-        alert("你爸媽有給你取名子吧?至少取個陳家豪吧?");
-        return;
-    }
-    var allAns = [];
-    resultPage.innerHTML = `<h4 class="loading">分析中</h4>`;
-    document.getElementById("start").classList.add("end");
-    document.getElementById("start").classList.remove("started");
-    const what = 0 + document.querySelector(".what").classList.contains("selected");
-    const the = 0 + document.querySelector(".the").classList.contains("selected");
-    var a = 0;
-    var pass = "okay";
-    var desiredClass;
-    for (let i = 0; i < 12; i++) {
-        var aList = document.getElementById(`b${i}a`).classList;
-        for (var ii = 0; ii < aList.length; ii++) {
-            if (aList[ii].startsWith('q')) {
-                desiredClass = aList[ii].slice(1);
-                break;
-            }
-        }
-        if (aList.contains("selected")) {
-            a++;
-            allAns[desiredClass] = "A";
-        }
-        else {
-            allAns[desiredClass] = "B";
-            if (!document.getElementById(`b${i}b`).classList.contains("selected")) pass = i;
-        }
-    }
-    if (pass !== "okay") {
-        alert(`請回答完第${12 - pass}題`);
-        document.getElementById("start").classList.remove("end");
-        document.getElementById("start").classList.add("started");
-        return;
-    }
-    console.log(allAns);
-    if (user == "蘇裔非") document.querySelector(".fei").classList.add("on");
-    const url = `https://script.google.com/macros/s/AKfycbyE3M7Cv434c6JhT-415IUA1pWaUi8w1OP8vom62txO8Pcof3eLta3_DISRUbFEa55qlg/exec?mode=form&name=${user}&userAgent=${navigator.userAgent}&what=${what}&the=${the}&a=${a}&allAns=${allAns}`;
-    fetch(url)
+const sendTo = (url) => {
+    sentTimes++;
+    var domain = sentTimes > 1 ? "https://script.google.com/macros/s/AKfycbyQmYIJHvA2ZUHNAorgn3NAvkLbM1XRYEWQZWcteB08u3QvFXXx8z2XUleUhk-7CZ-e/exec?mode=form&" : "https://script.google.com/macros/s/AKfycbyE3M7Cv434c6JhT-415IUA1pWaUi8w1OP8vom62txO8Pcof3eLta3_DISRUbFEa55qlg/exec?mode=form&";
+    fetch(domain + url)
         .then(response => response.json())
         .then(response => {
             var text = response.message;
@@ -229,8 +191,53 @@ const end = () => {
             }
         })
         .catch(function (error) {
-            alert("錯誤，請再試一次: " + error)
+            resultPage.innerHTML = `<h4 class="loading">分析中<br>太有意思了</h4>`;
+            sendTo(url);
+            console.warn(error)
         });
+}
+const end = () => {
+    user = document.getElementById("name").value;
+    if (user === "") {
+        alert("你爸媽有給你取名子吧?至少取個陳家豪吧?");
+        return;
+    }
+    let allAns = [];
+    resultPage.innerHTML = `<h4 class="loading">分析中</h4>`;
+    document.getElementById("start").classList.add("end");
+    document.getElementById("start").classList.remove("started");
+    const what = 0 + document.querySelector(".what").classList.contains("selected");
+    const the = 0 + document.querySelector(".the").classList.contains("selected");
+    let a = 0;
+    var pass = "okay";
+    var desiredClass;
+    for (let i = 0; i < 12; i++) {
+        var aList = document.getElementById(`b${i}a`).classList;
+        for (var ii = 0; ii < aList.length; ii++) {
+            if (aList[ii].startsWith('q')) {
+                desiredClass = aList[ii].slice(1);
+                break;
+            }
+        }
+        if (aList.contains("selected")) {
+            a++;
+            allAns[desiredClass] = "A";
+        }
+        else {
+            allAns[desiredClass] = "B";
+            if (!document.getElementById(`b${i}b`).classList.contains("selected")) pass = i;
+        }
+    }
+    if (pass !== "okay") {
+        alert(`請回答完第${12 - pass}題`);
+        document.getElementById("start").classList.remove("end");
+        document.getElementById("start").classList.add("started");
+        return;
+    }
+    console.log(allAns);
+    if (user == "蘇裔非") document.querySelector(".fei").classList.add("on");
+    let url = `name=${user}&userAgent=${navigator.userAgent}&what=${what}&the=${the}&a=${a}&allAns=${allAns}`;
+    sendTo(url);
 }
 
 const feedback = () => {
