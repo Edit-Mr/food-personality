@@ -29,7 +29,6 @@ const hideButton = () => {
     if (currentIndex === itemDivs.length - 1) forwardButton.style.opacity = "0";
     else {
         forwardButton.style.opacity = "1";
-        console.log(currentIndex);
         forwardButton.disabled = !(document.getElementById("b" + (11 - currentIndex) + "a").classList.contains("selected") || document.getElementById("b" + (11 - currentIndex) + "b").classList.contains("selected"))
     }
 }
@@ -51,43 +50,43 @@ itemsContainer.addEventListener("scroll", function () {
 const questions = {
     "有個傳銷人員跑來市場調查，他問你喜歡喝雪碧還是可樂，你會回...": [
         "雪碧。",
-        "可樂。"],
+        "可樂。", 0],
     "你在這個城市認識了個曖昧對象，對方邀請你去看電影，你會想看...": [
         "汪汪隊立大功：超級大電影。",
-        "奧本海默。"],
+        "奧本海默。", 1],
     "天空刮起暴風，你隱約聽到有類似鳥鳴的聲音，這是...": [
         "超級巨鳥。",
-        "叫聲像鳥的蟾蜍。"],
+        "叫聲像鳥的蟾蜍。", 2],
     "突然有三個男人將你圍住，他們開始圍圈跳舞唱歌，歌頌著你的到來...": [
         "我絕對要告他們性騷擾。",
-        "哈哈哈太有意思了，太有意思了。"],
+        "哈哈哈太有意思了，太有意思了。", 3],
     "路上出現一位老畫家，他覺得很酷，希望他幫你畫張肖像且會展覽在國家美術館…": [
         "新奇的體驗，想留下來看成品。",
-        "什麼鬼，我的臉沒那麼藝術吧。"],
+        "什麼鬼，我的臉沒那麼藝術吧。", 4],
     "一輛卡車從便利商店裡開出來撞向你，但即時煞住了，你會…": [
         "嚇到哭。",
-        "大罵他。"],
+        "大罵他。", 5],
     "章魚教領袖向你傳教，每週都要去教會但一個小時就有500塊，你會...": [
         "嚴正的拒絕，我不會相信一個章魚的話。",
-        "委婉的拒絕，時間寶貴，而且我會吃章魚燒。"],
+        "委婉的拒絕，時間寶貴，而且我會吃章魚燒。", 6],
     "一位身體不便的老婦人被掉落的棉被壓住了，此時你會...": [
         "幫忙，老人難免需要幫忙。",
-        "不理他，我有更重要的事。"],
+        "不理他，我有更重要的事。", 7],
     "一位老翁在講陳志忠參選的故事，旁邊的阿姨在rap battle…": [
         "我想和阿姨討論怎麼寫flow比較帥。",
-        "我更想了解陳致中的故事。"],
+        "我更想了解陳致中的故事。", 8],
     "有位少年正在施展疑似毀滅世界的咒語，你會…": [
         "雖然知道大概是假的，但我還是想打他一頓。",
-        "快步離開，不想靠近這個瘋子。"],
+        "快步離開，不想靠近這個瘋子。", 9],
     "一位全身裸體的人面青蛙仙人請你去他家避雨你會…": [
         "會，如果長得好看的話。",
-        "不會，感覺會被仙人跳。"],
+        "不會，感覺會被仙人跳。", 10],
     "一張充滿文字白紙飄向你，你覺得是…": [
         "泳慶房屋的廣告。",
-        "音樂會的門票。"],
+        "音樂會的門票。", 11],
     "有兩輛車可以選擇，其中一輛車坐了很多雞，另一輛卻空無一物，你會選擇…": [
         "有很多雞的車。",
-        "空無一人的車。"],
+        "空無一人的車。", 12],
 }
 
 const leftElement = document.getElementById("left");
@@ -105,7 +104,7 @@ const start = () => {
     for (let i = 0; i < selectedKeys.length; i++) {
         var divElement = document.createElement("div");
         divElement.innerHTML = `<h4>${selectedKeys[i]}</h4>
-        <button id="b${i}a" onclick="select(${i}, 1)">${questions[selectedKeys[i]][0]}</button><button id="b${i}b" onclick="select(${i},0)">${questions[selectedKeys[i]][1]}</button>`
+        <button id="b${i}a" onclick="select(${i}, 1)" class="q${questions[selectedKeys[i]][2]}">${questions[selectedKeys[i]][0]}</button><button id="b${i}b" onclick="select(${i},0)">${questions[selectedKeys[i]][1]}</button>`
         leftElement.insertAdjacentElement("afterend", divElement);
     }
     itemDivs = document.querySelectorAll(".items div");
@@ -114,8 +113,8 @@ const start = () => {
     while (randomIndex2 === randomIndex1) {
         randomIndex2 = getRandomIndex(itemDivs.length - 1);
     }
-    itemDivs[randomIndex1].innerHTML = `<h4>你在飯店裡感覺很無聊，這時你會...</h4><button class="what" id="b${11 - randomIndex1}a" onclick="select(${11 - randomIndex1}, 1)">看電影、閱讀小說或欣賞藝術作品。</button><button id="b${11 - randomIndex1}b" onclick="select(${11 - randomIndex1},0)">研究新知識、進行邏輯思考或解決問題。</button>`;
-    itemDivs[randomIndex2].innerHTML = `<h4>走進了一個酒吧，裡面的人想和你聊天，這時你會...</h4><button class="the" id="b${11 - randomIndex2}a" onclick="select(${11 - randomIndex2}, 1)">主動與他人交談，分享生活趣事或情感經歷。</button><button id="b${11 - randomIndex2}b" onclick="select(${11 - randomIndex2},0)">聆聽他人的想法，進行深度討論或探討具體主題。</button>`;
+    itemDivs[randomIndex1].innerHTML = `<h4>你在飯店裡感覺很無聊，這時你會...</h4><button class="what" id="b${11 - randomIndex1}a" onclick="select(${11 - randomIndex1}, 1)" class="q13">看電影、閱讀小說或欣賞藝術作品。</button><button id="b${11 - randomIndex1}b" onclick="select(${11 - randomIndex1},0)">研究新知識、進行邏輯思考或解決問題。</button>`;
+    itemDivs[randomIndex2].innerHTML = `<h4>走進了一個酒吧，裡面的人想和你聊天，這時你會...</h4><button class="the" id="b${11 - randomIndex2}a" onclick="select(${11 - randomIndex2}, 1)" class="q14">主動與他人交談，分享生活趣事或情感經歷。</button><button id="b${11 - randomIndex2}b" onclick="select(${11 - randomIndex2},0)">聆聽他人的想法，進行深度討論或探討具體主題。</button>`;
     const randomDiv2 = itemDivs[randomIndex2];
 
     scrollToCurrentIndex();
@@ -145,6 +144,7 @@ var user = "";
 const resultPage = document.getElementById("result");
 
 const end = () => {
+    var allAns = [];
     resultPage.innerHTML = `<h4 class="loading">分析中</h4>`;
     document.getElementById("start").classList.add("end");
     document.getElementById("start").classList.remove("started");
@@ -153,9 +153,23 @@ const end = () => {
     const the = 0 + document.querySelector(".the").classList.contains("selected");
     var a = 0;
     var pass = "okay";
+    var desiredClass;
     for (let i = 0; i < 12; i++) {
-        if (document.getElementById(`b${i}a`).classList.contains("selected")) a++;
-        else if (!document.getElementById(`b${i}b`).classList.contains("selected")) pass = i;
+        var aList = document.getElementById(`b${i}a`).classList;
+        for (var ii = 0; ii < aList.length; ii++) {
+            if (aList[ii].startsWith('q')) {
+                desiredClass = aList[ii].slice(1);
+                break;
+            }
+        }
+        if (aList.contains("selected")) {
+            a++;
+            allAns[desiredClass] = "A";
+        }
+        else {
+            allAns[desiredClass] = "B";
+            if (!document.getElementById(`b${i}b`).classList.contains("selected")) pass = i;
+        }
     }
     if (pass !== "okay") {
         alert(`請回答完第${12 - pass}題`);
@@ -163,8 +177,9 @@ const end = () => {
         document.getElementById("start").classList.add("started");
         return;
     }
+    console.log(allAns);
     if (user == "蘇裔非") document.querySelector(".fei").classList.add("on");
-    const url = `https://script.google.com/macros/s/AKfycbyE3M7Cv434c6JhT-415IUA1pWaUi8w1OP8vom62txO8Pcof3eLta3_DISRUbFEa55qlg/exec?mode=form&name=${user}&userAgent=${navigator.userAgent}&what=${what}&the=${the}&a=${a}`;
+    const url = `https://script.google.com/macros/s/AKfycbyE3M7Cv434c6JhT-415IUA1pWaUi8w1OP8vom62txO8Pcof3eLta3_DISRUbFEa55qlg/exec?mode=form&name=${user}&userAgent=${navigator.userAgent}&what=${what}&the=${the}&a=${a}&allAns=${allAns}`;
     fetch(url)
         .then(response => response.json())
         .then(response => {
@@ -236,7 +251,5 @@ if (Math.random() < 1 / 500) {
 
 document.getElementById("name").addEventListener("input", function () {
     var full = this.value.match(/[^\x00-\x80]/g);
-    console.log(full);
-    console.log(this.value.length);
     if (this.value.length + full.length > 12) this.value = this.value.slice(0, this.value.length - 1);
 })
