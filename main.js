@@ -154,7 +154,7 @@ const sendTo = (url) => {
             resultPage.innerHTML = `<div class="wrap"><img id="image" src="/img/${text}.webp" alt="你是${text}">
             <canvas id="canvas"></canvas><div class="container"><a id="download-button"></a><p id="download-text">長按以下載圖片</p><h2>你覺得有多準</h2>
                 <input type="range" id="rangeInput" min="0" max="10" step="1" value="10">
-                <span id="output">5</span>
+                <span id="output">10</span>
                 <button onclick="feedback()" id="feedback">提交</button><a href="/credit" class="credit">@2023 food-personality.com<br>製作人員</a></div></div>`;
             const image = document.getElementById("image");
             const canvas = document.getElementById("canvas");
