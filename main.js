@@ -3,6 +3,7 @@ const itemsContainer = document.querySelector(".items");
 let itemDivs;
 const backwardButton = document.querySelector("button[onclick='backward()']");
 const forwardButton = document.querySelector("button[onclick='foward()']");
+const current = document.querySelector(".current");
 function backward() {
     if (currentIndex > 0) {
         currentIndex--;
@@ -27,6 +28,7 @@ const hideButton = () => {
 }
 function scrollToCurrentIndex() {
     const itemWidth = itemDivs[currentIndex].offsetWidth;
+    current.innerText = currentIndex<12 ? `${currentIndex + 1}/12` : "";
     const scrollPosition = itemWidth * currentIndex;
     itemsContainer.scrollTo({
         left: scrollPosition,
@@ -34,10 +36,12 @@ function scrollToCurrentIndex() {
     });
     hideButton();
 }
+
 itemsContainer.addEventListener("scroll", function () {
     currentIndex = Math.round(itemsContainer.scrollLeft / itemDivs[0].offsetWidth);
     hideButton();
 });
+
 const questions = {
     "有個傳銷人員跑來市場調查，他問你喜歡喝雪碧還是可樂，你會回...": [
         "雪碧。",
@@ -81,6 +85,7 @@ const questions = {
 }
 
 const leftElement = document.getElementById("left");
+
 const start = () => {
     document.getElementById("start").classList.add("too");
     const keysArray = Object.keys(questions);
@@ -131,6 +136,7 @@ function getRandomIndex(max) {
 }
 var user = "";
 const resultPage = document.getElementById("result");
+
 const end = () => {
     resultPage.innerHTML = `<h4 class="loading">分析中</h4>`;
     document.getElementById("start").classList.add("end");
@@ -172,7 +178,7 @@ const end = () => {
                 ctx.drawImage(image, 0, 0, 1080, 1920);
                 ctx.font = `bold 70px system-ui`;
                 ctx.fillStyle = "#000";
-                ctx.fillText(user, 150, 370); 
+                ctx.fillText(user, 150, 370);
                 const imageWithText = new Image();
                 imageWithText.src = canvas.toDataURL("image/png");
                 image.src = imageWithText.src;
@@ -186,7 +192,7 @@ const end = () => {
                     document.getElementById("download-text").classList.add("small");
                     const rangeInput = document.getElementById('rangeInput');
                     const output = document.getElementById('output');
-                }else document.getElementById("download-button").style.display = "none";
+                } else document.getElementById("download-button").style.display = "none";
                 rangeInput.addEventListener('input', function () {
                     output.textContent = rangeInput.value;
                 });
@@ -199,6 +205,7 @@ const end = () => {
             alert("錯誤，請再試一次: " + error)
         });
 }
+
 const feedback = () => {
     var feedback = document.getElementById("feedback");
     feedback.innerText = "提交中";

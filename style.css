@@ -49,7 +49,7 @@ section {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    font-size: 2em;
+    font-size: 3em;
     scroll-snap-align: center;
     padding: 1rem;
 }
@@ -206,7 +206,7 @@ a.credit {
     margin-top: 1em;
 }
 
-.items .title {
+.items .title  {
     position: absolute;
     top: 2.5rem;
     left: 0;
@@ -214,7 +214,15 @@ a.credit {
     text-align: center;
     font-size: .5rem;
 }
-
+.items div.current{
+    position: fixed;
+    bottom: 2.5rem;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    height: unset;
+}
 .items .title img.cap {
     height: 1rem;
 }
