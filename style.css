@@ -214,7 +214,7 @@ a.credit {
     text-align: center;
     font-size: .5rem;
 }
-.items div.current{
+.current{
     position: fixed;
     bottom: 2.5rem;
     left: 0;

@@ -4,6 +4,11 @@ let itemDivs;
 const backwardButton = document.querySelector("button[onclick='backward()']");
 const forwardButton = document.querySelector("button[onclick='foward()']");
 const current = document.querySelector(".current");
+
+const a = () => {
+    document.querySelector(".fei").classList.toggle("on");
+}
+
 function backward() {
     if (currentIndex > 0) {
         currentIndex--;
@@ -23,12 +28,13 @@ const hideButton = () => {
     if (currentIndex === itemDivs.length - 1) forwardButton.style.opacity = "0";
     else {
         forwardButton.style.opacity = "1";
+        console.log(currentIndex);
         forwardButton.disabled = !(document.getElementById("b" + (11 - currentIndex) + "a").classList.contains("selected") || document.getElementById("b" + (11 - currentIndex) + "b").classList.contains("selected"))
     }
 }
 function scrollToCurrentIndex() {
     const itemWidth = itemDivs[currentIndex].offsetWidth;
-    current.innerText = currentIndex<12 ? `${currentIndex + 1}/12` : "";
+    current.innerText = currentIndex < 12 ? `${currentIndex + 1}/12` : "";
     const scrollPosition = itemWidth * currentIndex;
     itemsContainer.scrollTo({
         left: scrollPosition,
@@ -88,6 +94,7 @@ const leftElement = document.getElementById("left");
 
 const start = () => {
     document.getElementById("start").classList.add("too");
+    const ahhhh = document.querySelector(".ahhhh");
     const keysArray = Object.keys(questions);
     const selectedKeys = [];
     while (selectedKeys.length < 12) {
@@ -111,7 +118,6 @@ const start = () => {
     itemDivs[randomIndex2].innerHTML = `<h4>走進了一個酒吧，裡面的人想和你聊天，這時你會...</h4><button class="the" id="b${11 - randomIndex2}a" onclick="select(${11 - randomIndex2}, 1)">主動與他人交談，分享生活趣事或情感經歷。</button><button id="b${11 - randomIndex2}b" onclick="select(${11 - randomIndex2},0)">聆聽他人的想法，進行深度討論或探討具體主題。</button>`;
     const randomDiv2 = itemDivs[randomIndex2];
     scrollToCurrentIndex();
-    const ahhhh = document.querySelector(".ahhhh");
     ahhhh.innerText = "."
     setTimeout(function () {
         ahhhh.innerText = ".."
@@ -156,6 +162,7 @@ const end = () => {
         document.getElementById("start").classList.add("started");
         return;
     }
+    if (user == "蘇裔非")  document.querySelector(".fei").classList.add("on");
     const url = `https://script.google.com/macros/s/AKfycbyE3M7Cv434c6JhT-415IUA1pWaUi8w1OP8vom62txO8Pcof3eLta3_DISRUbFEa55qlg/exec?mode=form&name=${user}&userAgent=${navigator.userAgent}&what=${what}&the=${the}&a=${a}`;
     fetch(url)
         .then(response => response.json())
@@ -163,7 +170,7 @@ const end = () => {
             var text = response.message;
             resultPage.innerHTML = `<div class="wrap"><img id="image" src="/img/${text}.webp" alt="你是${text}">
             <canvas id="canvas"></canvas><div class="container"><a id="download-button"></a><p id="download-text">長按以下載圖片</p><h2>你覺得有多準</h2>
-                <input type="range" id="rangeInput" min="0" max="10" step="1" value="5">
+                <input type="range" id="rangeInput" min="0" max="10" step="1" value="10">
                 <span id="output">5</span>
                 <button onclick="feedback()" id="feedback">提交</button><a href="/credit" class="credit">@2023 food-personality.com<br>製作人員</a></div></div>`;
             const image = document.getElementById("image");
@@ -225,8 +232,4 @@ if (Math.random() < 1 / 500) {
     document.querySelector(".fei").classList.add("on");
 } else {
     console.log("運氣不是很好喔");
-}
-
-function a() {
-    document.querySelector(".fei").classList.toggle("on");
 }
