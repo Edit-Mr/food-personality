@@ -154,7 +154,18 @@
 
         section div {
             transform: translateX(2em);
+            padding: 1rem;
         }
+
+        @media (max-aspect-ratio: 4/3) {
+            h2 {
+                font-size: 2rem;
+            }
+            span{
+                display: block;
+            }
+        }
+        
     </style>
 </head>
 
@@ -169,7 +180,7 @@
             <section>
                 <div class="aos">
                     <h2>蘇裔非</h2>
-                    <h3>YouTuber / 心理學家</h3>
+                    <h3>YouTuber / <span>心理學家</span></h3>
                 </div>
                 <div class="lr aos"><img src="/credit/ifeisu.webp" alt=""></div>
             </section>
@@ -179,7 +190,7 @@
                     <h2>毛哥EM</h2>
                     <h3>網頁設計</h3>
                 </div>
-                <div class="lr aos"><img src="/credit/EM.webp" alt=""></div>
+                <div class="lr aos"><img src="/credit/EM.webp" alt="" id="EM"></div>
             </section>
         </a><a href="https://www.youtube.com/@Miao_Miao_" target="_blank">
             <section>
@@ -207,6 +218,11 @@
 
         document.addEventListener("scroll", addClassToVisibleElements);
         addClassToVisibleElements();
+
+
+        if (window.innerWidth < 600) {
+            document.getElementById("EM").src = "/credit/EM-phone.webp";
+        }
     </script>
 </body>
 
