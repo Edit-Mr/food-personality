@@ -152,9 +152,7 @@ const sendTo = (url) => {
     else if (sentTimes > 2) {
         resultPage.innerHTML = `<h4 class="loading">同時太多人了，5秒後重試第${sentTimes}次</h4>`;
         delay = 5000;
-    } else if (sentTimes > 9) {
-        resultPage.innerHTML = `<h4 class="loading">同時太多人了，請過兩分鐘再試</h4>`; return;
-    };
+    }
     console.log(delay);
     setTimeout(function () {
         resultPage.innerHTML = `<h4 class="loading">分析中</h4>`;
