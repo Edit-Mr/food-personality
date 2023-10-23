@@ -144,58 +144,70 @@ function getRandomIndex(max) {
 let user = "";
 const resultPage = document.getElementById("result");
 const sendTo = (url) => {
+    var delay = 0;
     sentTimes++;
-    if(sentTimes > 2) { resultPage.innerHTML = `<h4 class="loading">同時太多人了，請過兩分鐘再試<br>若造成不便IDGAF</h4>`; return};
-    var domain = sentTimes > 1 ? "https://script.google.com/macros/s/AKfycbyE3M7Cv434c6JhT-415IUA1pWaUi8w1OP8vom62txO8Pcof3eLta3_DISRUbFEa55qlg/exec?mode=form&":"https://script.google.com/macros/s/AKfycbyQmYIJHvA2ZUHNAorgn3NAvkLbM1XRYEWQZWcteB08u3QvFXXx8z2XUleUhk-7CZ-e/exec?mode=form&";
-    fetch(domain + url)
-        .then(response => response.json())
-        .then(response => {
-            var text = response.message;
-            resultPage.innerHTML = `<div class="wrap"><img id="image" src="/img/${text}.webp" alt="你是${text}">
+    if (sentTimes === 1) {
+        resultPage.innerHTML = `<h4 class="loading">分析中<br>太有意思了</h4>`;
+    }
+    else if (sentTimes > 2) {
+        resultPage.innerHTML = `<h4 class="loading">同時太多人了，5秒後重試</h4>`;
+        delay = 5000;
+    } else if (sentTimes > 9) {
+        resultPage.innerHTML = `<h4 class="loading">同時太多人了，請過兩分鐘再試</h4>`; return;
+    };
+    console.log(delay);
+    setTimeout(function () {
+        resultPage.innerHTML = `<h4 class="loading">分析中</h4>`;
+        var domain = sentTimes > 1 ? "https://script.google.com/macros/s/AKfycbyE3M7Cv434c6JhT-415IUA1pWaUi8w1OP8vom62txO8Pcof3eLta3_DISRUbFEa55qlg/exec?mode=form&" : "https://script.google.com/macros/s/AKfycbyQmYIJHvA2ZUHNAorgn3NAvkLbM1XRYEWQZWcteB08u3QvFXXx8z2XUleUhk-7CZ-e/exec?mode=form&";
+        fetch(domain + url)
+            .then(response => response.json())
+            .then(response => {
+                var text = response.message;
+                resultPage.innerHTML = `<div class="wrap"><img id="image" src="/img/${text}.webp" alt="你是${text}">
             <canvas id="canvas"></canvas><div class="container"><a id="download-button"></a><p id="download-text">長按以下載圖片</p><h2>你覺得有多準</h2>
                 <input type="range" id="rangeInput" min="0" max="10" step="1" value="10">
                 <span id="output">10</span>
                 <button onclick="feedback()" id="feedback">提交</button><a href="/credit" class="credit">@2023 food-personality.com<br>製作人員</a></div></div>`;
-            const image = document.getElementById("image");
-            const canvas = document.getElementById("canvas");
-            var finished = false;
-            image.onload = function () {
-                if (finished) return;
-                finished = true;
-                const ctx = canvas.getContext("2d");
-                canvas.width = 1080;
-                canvas.height = 1920;
-                ctx.drawImage(image, 0, 0, 1080, 1920);
-                ctx.font = `bold 70px system-ui`;
-                ctx.fillStyle = "#000";
-                ctx.fillText(user, 150, 370);
-                const imageWithText = new Image();
-                imageWithText.src = canvas.toDataURL("image/png");
-                image.src = imageWithText.src;
-                document.querySelector(".container").style.display = "flex";
-                if (!/(iPhone|iPad)/.test(navigator.userAgent)) {
-                    const downloadLink = document.getElementById("download-button");
-                    downloadLink.href = imageWithText.src;
-                    downloadLink.download = user + "的食物探悉.png";
-                    downloadLink.innerText = "下載圖片";
-                    document.getElementById("download-text").innerText = navigator.userAgent.includes("Win") ? "亦可右鍵下載圖片" : "亦可長按下載圖片";
-                    document.getElementById("download-text").classList.add("small");
-                    const rangeInput = document.getElementById('rangeInput');
-                    const output = document.getElementById('output');
-                } else document.getElementById("download-button").style.display = "none";
-                rangeInput.addEventListener('input', function () {
-                    output.textContent = rangeInput.value;
-                });
-                rangeInput.addEventListener('touchmove', function () {
-                    output.textContent = rangeInput.value;
-                });
-            }
-        })
-        .catch(function (error) {
-            resultPage.innerHTML = `<h4 class="loading">分析中<br>太有意思了</h4>`;
-            sendTo(url);
-            console.warn(error)
-        });
+                const image = document.getElementById("image");
+                const canvas = document.getElementById("canvas");
+                var finished = false;
+                image.onload = function () {
+                    if (finished) return;
+                    finished = true;
+                    const ctx = canvas.getContext("2d");
+                    canvas.width = 1080;
+                    canvas.height = 1920;
+                    ctx.drawImage(image, 0, 0, 1080, 1920);
+                    ctx.font = `bold 70px system-ui`;
+                    ctx.fillStyle = "#000";
+                    ctx.fillText(user, 150, 370);
+                    const imageWithText = new Image();
+                    imageWithText.src = canvas.toDataURL("image/png");
+                    image.src = imageWithText.src;
+                    document.querySelector(".container").style.display = "flex";
+                    if (!/(iPhone|iPad)/.test(navigator.userAgent)) {
+                        const downloadLink = document.getElementById("download-button");
+                        downloadLink.href = imageWithText.src;
+                        downloadLink.download = user + "的食物探悉.png";
+                        downloadLink.innerText = "下載圖片";
+                        document.getElementById("download-text").innerText = navigator.userAgent.includes("Win") ? "亦可右鍵下載圖片" : "亦可長按下載圖片";
+                        document.getElementById("download-text").classList.add("small");
+                        const rangeInput = document.getElementById('rangeInput');
+                        const output = document.getElementById('output');
+                    } else document.getElementById("download-button").style.display = "none";
+                    rangeInput.addEventListener('input', function () {
+                        output.textContent = rangeInput.value;
+                    });
+                    rangeInput.addEventListener('touchmove', function () {
+                        output.textContent = rangeInput.value;
+                    });
+                }
+            })
+            .catch(function (error) {
+                sendTo(url);
+                console.warn(error)
+            });
+    }, delay)
 }
 const end = () => {
     user = document.getElementById("name").value;
