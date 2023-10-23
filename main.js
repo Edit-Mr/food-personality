@@ -245,7 +245,7 @@ const feedback = () => {
     var feedback = document.getElementById("feedback");
     feedback.innerText = "提交中";
     feedback.disabled = true;
-    const url = `https://script.google.com/macros/s/AKfycbyE3M7Cv434c6JhT-415IUA1pWaUi8w1OP8vom62txO8Pcof3eLta3_DISRUbFEa55qlg/exec?mode=score&score=${document.getElementById("rangeInput").value}&name=${user}&userAgent=${navigator.userAgent}`;
+    const url = `https://script.google.com/macros/s/AKfycbyQmYIJHvA2ZUHNAorgn3NAvkLbM1XRYEWQZWcteB08u3QvFXXx8z2XUleUhk-7CZ-e/exec?mode=score&score=${document.getElementById("rangeInput").value}&name=${user}&userAgent=${navigator.userAgent}`;
     fetch(url)
         .then(response => response.json())
         .then(response => {
@@ -253,6 +253,8 @@ const feedback = () => {
         })
         .catch(function (error) {
             alert("錯誤，請再試一次: " + error)
+            feedback.disabled = false;
+            feedback.innerText = "提交";
         });
 }
 
