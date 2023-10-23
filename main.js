@@ -150,7 +150,7 @@ const sendTo = (url) => {
         resultPage.innerHTML = `<h4 class="loading">分析中<br>太有意思了</h4>`;
     }
     else if (sentTimes > 2) {
-        resultPage.innerHTML = `<h4 class="loading">同時太多人了，5秒後重試</h4>`;
+        resultPage.innerHTML = `<h4 class="loading">同時太多人了，5秒後重試第${sentTimes}次</h4>`;
         delay = 5000;
     } else if (sentTimes > 9) {
         resultPage.innerHTML = `<h4 class="loading">同時太多人了，請過兩分鐘再試</h4>`; return;
@@ -158,7 +158,7 @@ const sendTo = (url) => {
     console.log(delay);
     setTimeout(function () {
         resultPage.innerHTML = `<h4 class="loading">分析中</h4>`;
-        var domain = sentTimes > 1 ? "https://script.google.com/macros/s/AKfycbyE3M7Cv434c6JhT-415IUA1pWaUi8w1OP8vom62txO8Pcof3eLta3_DISRUbFEa55qlg/exec?mode=form&" : "https://script.google.com/macros/s/AKfycbyQmYIJHvA2ZUHNAorgn3NAvkLbM1XRYEWQZWcteB08u3QvFXXx8z2XUleUhk-7CZ-e/exec?mode=form&";
+        var domain = sentTimes > 1 ? "httpss://script.google.com/macros/s/AKfycbyE3M7Cv434c6JhT-415IUA1pWaUi8w1OP8vom62txO8Pcof3eLta3_DISRUbFEa55qlg/exec?mode=form&" : "httpss://script.google.com/macros/s/AKfycbyQmYIJHvA2ZUHNAorgn3NAvkLbM1XRYEWQZWcteB08u3QvFXXx8z2XUleUhk-7CZ-e/exec?mode=form&";
         fetch(domain + url)
             .then(response => response.json())
             .then(response => {
